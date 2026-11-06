@@ -1,4 +1,4 @@
-const API_URL = "https://medirecommend-ai.onrender.com/predict";
+const API_URL = "https://medirecommend-ai.onrender.com/";
 const TOP_K = 3;
 
 
