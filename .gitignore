@@ -1,0 +1,50 @@
+
+# Virtual Environment
+venv/
+.venv/
+env/
+
+# Python Cache Files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment Variables and Secrets
+.env
+.env.*
+!.env.example
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# VS Code
+.vscode/
+
+# PyCharm
+.idea/
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+
+# Temporary Files
+*.tmp
+*.bak
+
+# Testing and Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Build Files
+build/
+dist/
+*.egg-info/
+
+# Model Training Temporary Files
+*.pkl.tmp
+*.joblib.tmp

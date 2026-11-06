@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MEDIRECOMMEND AI</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#home">
+      <span class="brand-mark" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2-6 4 12 2-6h6"/></svg>
+      </span>
+      MEDIRECOMMEND AI
+    </a>
+    <nav class="tabs" aria-label="Sections">
+      <a href="#home" data-view="home">Home</a>
+      <a href="#prediction" data-view="prediction">Prediction</a>
+      <a href="#care" data-view="care">Precaution &amp; medication</a>
+    </nav>
+  </header>
+
+  <main class="page">
+
+    <!-- ============ 1. HOME: intro + symptom picker ============ -->
+    <section id="view-home" class="view" data-view="home">
+      <div class="intro">
+        <h1>Understand what your symptoms may point to</h1>
+        <p>
+          Choose the symptoms you have and the model ranks the most likely conditions.
+          You then get a plain description of each one, along with precautions and common medication.</p><br/>
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="tile" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2-6 4 12 2-6h6"/></svg>
+          </span>
+          <div>
+            <h2>Check your symptoms</h2>
+            <p>Pick what you feel, then get a likely match</p>
+          </div>
+        </div>
+
+        <h3 class="label">Common symptoms</h3>
+        <div id="common" class="chips" role="group" aria-label="Common symptoms"></div>
+
+        <h3 class="label" id="moreLabel">More symptoms</h3>
+        <div class="combo" id="combo">
+          <input
+            id="comboInput"
+            type="text"
+            placeholder="Search or choose another symptom"
+            autocomplete="off"
+            role="combobox"
+            aria-expanded="false"
+            aria-controls="comboList"
+            aria-labelledby="moreLabel"
+          />
+          <button type="button" class="combo-btn" id="comboBtn" tabindex="-1" aria-label="Show all symptoms">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 5l5 5 5-5"/></svg>
+          </button>
+          <ul id="comboList" class="combo-list" role="listbox" aria-multiselectable="true" hidden></ul>
+        </div>
+
+        <h3 class="label">Selected (<span id="count">0</span>)</h3>
+        <div id="selected" class="tags" aria-live="polite"></div>
+
+        <div class="actions">
+          <button type="button" id="predict" class="btn" disabled>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+            <span id="predictText">Find likely condition</span>
+          </button>
+          <button type="button" id="clear" class="link" disabled>Clear all</button>
+        </div>
+
+        <p id="status" class="status" role="status" hidden></p>
+      </div>
+    </section>
+
+    <!-- ============ 2. PREDICTION: matches + description ============ -->
+    <section id="view-prediction" class="view" data-view="prediction" hidden>
+      <div class="view-head">
+        <h1>Prediction</h1>
+        <p>The conditions that best match your symptoms.</p>
+      </div>
+
+      <div id="predEmpty" class="empty">
+        <p>No prediction yet. Choose your symptoms on the Home page first.</p>
+        <a class="btn" href="#home">Go to Home</a>
+      </div>
+
+      <div id="predBody" hidden>
+        <div class="used">
+          <span class="used-label">Based on</span>
+          <div id="usedTags" class="tags"></div>
+        </div>
+        <div id="predList" class="pred-list"></div>
+        <p id="predDisclaimer" class="disclaimer"></p>
+      </div>
+    </section>
+
+    <!-- ============ 3. PRECAUTION & MEDICATION ============ -->
+    <section id="view-care" class="view" data-view="care" hidden>
+      <div class="view-head">
+        <h1>Precaution &amp; medication</h1>
+        <p>What to do next and what is commonly prescribed.</p>
+      </div>
+
+      <div id="careEmpty" class="empty">
+        <p>Nothing to show yet. Run a symptom check on the Home page first.</p>
+        <a class="btn" href="#home">Go to Home</a>
+      </div>
+
+      <div id="careBody" hidden>
+        <div id="careTabs" class="seg" role="tablist" aria-label="Predicted conditions"></div>
+        <div class="card care-card" id="carePanel" role="tabpanel">
+          <h2 id="careTitle"></h2>
+          <div class="care-grid">
+            <div>
+              <h3 class="label">Precautions</h3>
+              <ul id="precList" class="care-list"></ul>
+            </div>
+            <div>
+              <h3 class="label">Medication</h3>
+              <ul id="medList" class="care-list"></ul>
+            </div>
+          </div>
+        </div>
+        <p id="careDisclaimer" class="disclaimer"></p>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
