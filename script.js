@@ -1,9 +1,7 @@
-// Change this if your backend runs somewhere else
-const API_URL = "http://127.0.0.1:8000";
+const API_URL = "https://medirecommend-ai.onrender.com/predict";
 const TOP_K = 3;
 
-// Chips shown on top. Each chip uses the first key the model actually knows,
-// and is hidden if none of its keys exist, so the list is safe to edit.
+
 const COMMON = [
   { label: "Fever", keys: ["high_fever", "mild_fever"] },
   { label: "Cough", keys: ["cough"] },
@@ -25,20 +23,16 @@ const ICON_CHECK =
 const state = {
   allSymptoms: [],
   selected: new Set(),
-  data: null, // last /predict response
+  data: null, 
   careIndex: 0,
 };
 
-// symptom_key -> "Symptom key"
 const pretty = (s) => {
   const t = s.replace(/_/g, " ").replace(/\s+/g, " ").trim();
   return t.charAt(0).toUpperCase() + t.slice(1);
 };
 const cleanName = (s) => s.replace(/\s+/g, " ").trim();
 
-// =====================================================================
-// Navigation between the 3 sections (Home / Prediction / Care)
-// =====================================================================
 const VIEWS = ["home", "prediction", "care"];
 
 function showView() {
@@ -60,9 +54,7 @@ function goTo(view) {
   else location.hash = view;
 }
 
-// =====================================================================
-// Status message
-// =====================================================================
+
 function showStatus(message, type) {
   const el = $("status");
   if (!message) {
@@ -74,9 +66,6 @@ function showStatus(message, type) {
   el.hidden = false;
 }
 
-// =====================================================================
-// Load symptoms
-// =====================================================================
 async function loadSymptoms() {
   showStatus("Loading symptoms...", "info");
   try {
@@ -94,9 +83,6 @@ async function loadSymptoms() {
   }
 }
 
-// =====================================================================
-// Common symptom chips
-// =====================================================================
 function buildChips() {
   const wrap = $("common");
   wrap.innerHTML = "";
@@ -114,9 +100,6 @@ function buildChips() {
   });
 }
 
-// =====================================================================
-// Searchable dropdown (combobox) with all symptoms
-// =====================================================================
 const input = $("comboInput");
 const list = $("comboList");
 let activeIndex = -1;
@@ -186,9 +169,7 @@ input.addEventListener("keydown", (e) => {
   }
 });
 
-// =====================================================================
-// Selection
-// =====================================================================
+
 function toggle(symptom) {
   if (state.selected.has(symptom)) state.selected.delete(symptom);
   else state.selected.add(symptom);
@@ -235,9 +216,6 @@ $("clear").addEventListener("click", () => {
   showStatus("");
 });
 
-// =====================================================================
-// Predict
-// =====================================================================
 $("predict").addEventListener("click", async () => {
   const btn = $("predict");
   const label = $("predictText");
@@ -275,9 +253,6 @@ $("predict").addEventListener("click", async () => {
   }
 });
 
-// =====================================================================
-// Section 2: Prediction + description
-// =====================================================================
 function renderPrediction() {
   const d = state.data;
   $("predEmpty").hidden = !!d;
@@ -342,9 +317,7 @@ function renderPrediction() {
   $("predDisclaimer").textContent = d.disclaimer;
 }
 
-// =====================================================================
-// Section 3: Precaution + medication
-// =====================================================================
+
 function fillList(ul, items, emptyText) {
   ul.innerHTML = "";
   if (!items || !items.length) {
@@ -389,9 +362,7 @@ function renderCare() {
   $("careDisclaimer").textContent = d.disclaimer;
 }
 
-// =====================================================================
-// Init
-// =====================================================================
+
 renderSelection();
 renderPrediction();
 renderCare();
